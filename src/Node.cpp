@@ -24,9 +24,9 @@ Node::Node(int currentDepth, int targetDepth, int branchingFactor){
 
 	if(nodeType==LEAF){
 		value = getRandom(MAXLEAFVALUE);
-		std::cout<<value<<" ";
 	}else{
 		childCount = branchingFactor;
+		untouched = true;
 
 		childs =  new Node*[branchingFactor];
 
@@ -36,14 +36,47 @@ Node::Node(int currentDepth, int targetDepth, int branchingFactor){
 	}
 }
 
-/*
-static void destroyRecursive(Node* node)
+
+void Node::destroyRecursive()
 {  
+	Node* node = this;
+	if(nodeType!=LEAF){
+	    for(int i=0;i< node->childCount ;i++){
+	    	//std::cout<<"type: "<<nodeType<<std::endl;
+	    	node->childs[i]->destroyRecursive();
+	    }
+	}
 
-    for(int i=0;i<node->childCount;i++){
-    	destroyRecursive(node->childs[i]);
-    }  
-
-    delete node;  
+	delete[] childs;
 }
-*/
+
+void Node::seekValue(){
+	Node* node = this;
+
+	if(nodeType==LEAF){
+		
+		//saying value
+		std::cout<<value<<" "<<std::endl;
+		return;
+	}else if(nodeType==MAX){
+		for(int i=0;i< node->childCount ;i++){
+	    	node->childs[i]->seekValue();
+	    }
+	    for(int i=0;i< node->childCount ;i++){
+	    	if(node->childs[i]->value > this->value || untouched){
+	    		this->value = node->childs[i]->value;
+	    		untouched = false;
+	    	}
+	    }
+	}else if(nodeType==MIN){
+		for(int i=0;i< node->childCount ;i++){
+	    	node->childs[i]->seekValue();
+	    }
+	    for(int i=0;i< node->childCount ;i++){
+	    	if(node->childs[i]->value < this->value || untouched){
+	    		this->value = node->childs[i]->value;
+	    		untouched = false;
+	    	}
+	    }
+	}
+}

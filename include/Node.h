@@ -15,10 +15,15 @@ public:
 	Type nodeType;
 	Node** childs;
 
+	bool untouched;
+
+	void seekValue();
+
 	Node();
 	Node(int, int, int);
 
-	
+	void destroyRecursive();
+
 	
 };
 

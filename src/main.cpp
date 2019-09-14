@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Node.h"
 
+
 int main(){
 	int targetDepth;
 	int branchingFactor;
@@ -14,7 +15,13 @@ int main(){
 
 	Node root = Node(0, targetDepth, branchingFactor);
 
-	//Node::destroyRecursive(&root);
+
+	std::cout<<std::endl;
+	root.seekValue();
+
+	std::cout<<"Melhor valor alcançado: "<<root.value<<std::endl;
+
+	root.destroyRecursive();
 
 	return 0;
 }
