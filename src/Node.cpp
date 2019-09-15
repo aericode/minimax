@@ -14,7 +14,7 @@ int getRandom(int maxValue){
 
 Node::Node(){}
 
-Node::Node(int currentDepth, int targetDepth, int branchingFactor){
+Node::Node(int currentDepth, int targetDepth, int branchingFactor, bool printValue){
 	if(currentDepth == targetDepth){
 		nodeType = LEAF;
 		childCount = 0;
@@ -24,6 +24,7 @@ Node::Node(int currentDepth, int targetDepth, int branchingFactor){
 
 	if(nodeType==LEAF){
 		value = getRandom(MAXLEAFVALUE);
+		if(printValue)std::cout<<value<<" ";
 	}else{
 		childCount = branchingFactor;
 		untouched = true;
@@ -31,7 +32,7 @@ Node::Node(int currentDepth, int targetDepth, int branchingFactor){
 		childs =  new Node*[branchingFactor];
 
 		for(int i=0;i < branchingFactor;i++){
-			childs[i] = new Node(currentDepth + 1, targetDepth, branchingFactor);
+			childs[i] = new Node(currentDepth + 1, targetDepth, branchingFactor, printValue);
 		}
 	}
 }
@@ -39,11 +40,9 @@ Node::Node(int currentDepth, int targetDepth, int branchingFactor){
 
 void Node::destroyRecursive()
 {  
-	Node* node = this;
 	if(nodeType!=LEAF){
-	    for(int i=0;i< node->childCount ;i++){
-	    	//std::cout<<"type: "<<nodeType<<std::endl;
-	    	node->childs[i]->destroyRecursive();
+	    for(int i=0;i< childCount ;i++){
+	    	childs[i]->destroyRecursive();
 	    }
 	}
 
@@ -51,33 +50,29 @@ void Node::destroyRecursive()
 }
 
 void Node::seekValue(){
-	Node* node = this;
 
 	if(nodeType==LEAF){
-		
-		//saying value
-		std::cout<<value<<" "<<std::endl;
 		return;
 	}else if(nodeType==MAX){
-		for(int i=0;i< node->childCount ;i++){
-	    	node->childs[i]->seekValue();
+		for(int i=0;i< childCount ;i++){
+	    	childs[i]->seekValue();
 	    }
-	    for(int i=0;i< node->childCount ;i++){
-	    	if(node->childs[i]->value > this->value || untouched){
-	    		this->value = node->childs[i]->value;
+	    for(int i=0;i< childCount ;i++){
+	    	if(childs[i]->value > value || untouched){
+	    		value = childs[i]->value;
 	    		untouched = false;
-	    		node->myChoice = i;
+	    		myChoice = i;
 	    	}
 	    }
 	}else if(nodeType==MIN){
-		for(int i=0;i< node->childCount ;i++){
-	    	node->childs[i]->seekValue();
+		for(int i=0;i < childCount ;i++){
+	    	childs[i]->seekValue();
 	    }
-	    for(int i=0;i< node->childCount ;i++){
-	    	if(node->childs[i]->value < this->value || untouched){
-	    		this->value = node->childs[i]->value;
+	    for(int i=0;i< childCount ;i++){
+	    	if(childs[i]->value < value || untouched){
+	    		value = childs[i]->value;
 	    		untouched = false;
-	    		node->myChoice = i;
+	    		myChoice = i;
 	    	}
 	    }
 	}
