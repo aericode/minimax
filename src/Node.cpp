@@ -77,12 +77,3 @@ void Node::seekValue(){
 	    }
 	}
 }
-
-void Node::choiceRoute(){
-	if(nodeType==LEAF){
-		return;
-	}else{
-		std::cout<< myChoice <<' ';
-		childs[myChoice]->choiceRoute();
-	}
-}

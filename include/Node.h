@@ -25,8 +25,6 @@ public:
 	Node(int, int, int, bool);
 
 	void destroyRecursive();
-
-	void choiceRoute();
 	
 };
 
