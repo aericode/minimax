@@ -41,8 +41,8 @@ Node::Node(int currentDepth, int targetDepth, int branchingFactor, bool printVal
 void Node::destroyRecursive()
 {  
 	if(nodeType != LEAF) {
-	    for(int i=0; i< childCount; i++){
-	    	childs[i]->destroyRecursive();
+	    for(int i=0; i < childCount; i++){
+            if(childs[i] != nullptr) { childs[i]->destroyRecursive(); }
 	    }
 	}
 

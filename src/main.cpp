@@ -16,8 +16,7 @@ int main() {
 	std::cout << "Qual a profundidade da árvore?" << std::endl;
 	std::cin >> targetDepth;
 
-	std::cout << "Qual o fator de ramificação da árvore?" << std::endl;
-	std::cin >> branchingFactor;
+	std::cout << "Qual o fator de ramificação da árvore?" << std::endl; std::cin >> branchingFactor;
 
 	std::cout << "Exibir o valor dos leaf nodes? S/N" << std::endl;
 	std::cin >> optionLeafValue;
@@ -48,7 +47,7 @@ int main() {
 
 	std::cout << "Melhor valor alcançado: " << root.value << std::endl;
 
-	root.destroyRecursive();
+    root.destroyRecursive();
 
 	return 0;
 }
