@@ -7,7 +7,7 @@
 
 typedef int Type;
 
-class Node{
+class Node {
 public:
 	int childCount;
 	int value;
@@ -19,14 +19,11 @@ public:
 
 	int myChoice;
 
-	void seekValue();
-
 	Node();
 	Node(int, int, int, bool);
 
+	void seekValue();
 	void destroyRecursive();
-	
 };
-
 
 #endif
