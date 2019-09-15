@@ -50,7 +50,7 @@ void Node::destroyRecursive()
 	delete[] childs;
 }
 
-void Node::seekValue(){
+void Node::seekValue(int* route){
 	Node* node = this;
 
 	if(nodeType==LEAF){
@@ -60,22 +60,24 @@ void Node::seekValue(){
 		return;
 	}else if(nodeType==MAX){
 		for(int i=0;i< node->childCount ;i++){
-	    	node->childs[i]->seekValue();
+	    	node->childs[i]->seekValue(route);
 	    }
 	    for(int i=0;i< node->childCount ;i++){
 	    	if(node->childs[i]->value > this->value || untouched){
 	    		this->value = node->childs[i]->value;
 	    		untouched = false;
+	    		route[node->depth] = i;
 	    	}
 	    }
 	}else if(nodeType==MIN){
 		for(int i=0;i< node->childCount ;i++){
-	    	node->childs[i]->seekValue();
+	    	node->childs[i]->seekValue(route);
 	    }
 	    for(int i=0;i< node->childCount ;i++){
 	    	if(node->childs[i]->value < this->value || untouched){
 	    		this->value = node->childs[i]->value;
 	    		untouched = false;
+	    		route[node->depth] = i;
 	    	}
 	    }
 	}

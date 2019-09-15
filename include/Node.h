@@ -17,7 +17,7 @@ public:
 
 	bool untouched;
 
-	void seekValue();
+	void seekValue(int*);
 
 	Node();
 	Node(int, int, int);
