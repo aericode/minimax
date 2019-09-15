@@ -17,13 +17,16 @@ public:
 
 	bool untouched;
 
-	void seekValue(int*);
+	int myChoice;
+
+	void seekValue();
 
 	Node();
 	Node(int, int, int);
 
 	void destroyRecursive();
 
+	void choiceRoute();
 	
 };
 

@@ -50,7 +50,7 @@ void Node::destroyRecursive()
 	delete[] childs;
 }
 
-void Node::seekValue(int* route){
+void Node::seekValue(){
 	Node* node = this;
 
 	if(nodeType==LEAF){
@@ -60,25 +60,34 @@ void Node::seekValue(int* route){
 		return;
 	}else if(nodeType==MAX){
 		for(int i=0;i< node->childCount ;i++){
-	    	node->childs[i]->seekValue(route);
+	    	node->childs[i]->seekValue();
 	    }
 	    for(int i=0;i< node->childCount ;i++){
 	    	if(node->childs[i]->value > this->value || untouched){
 	    		this->value = node->childs[i]->value;
 	    		untouched = false;
-	    		route[node->depth] = i;
+	    		node->myChoice = i;
 	    	}
 	    }
 	}else if(nodeType==MIN){
 		for(int i=0;i< node->childCount ;i++){
-	    	node->childs[i]->seekValue(route);
+	    	node->childs[i]->seekValue();
 	    }
 	    for(int i=0;i< node->childCount ;i++){
 	    	if(node->childs[i]->value < this->value || untouched){
 	    		this->value = node->childs[i]->value;
 	    		untouched = false;
-	    		route[node->depth] = i;
+	    		node->myChoice = i;
 	    	}
 	    }
+	}
+}
+
+void Node::choiceRoute(){
+	if(nodeType==LEAF){
+		return;
+	}else{
+		std::cout<< myChoice <<' ';
+		childs[myChoice]->choiceRoute();
 	}
 }
